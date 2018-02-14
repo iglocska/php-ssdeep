@@ -101,7 +101,7 @@ PHP_MINFO_FUNCTION(ssdeep) {
 PHP_FUNCTION(ssdeep_fuzzy_hash) {
     char *hash = (char *) emalloc(FUZZY_MAX_RESULT);
     char *to_hash;
-    int to_hash_len;
+    size_t to_hash_len;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &to_hash, &to_hash_len) == FAILURE) {
         RETURN_NULL();
@@ -120,7 +120,7 @@ PHP_FUNCTION(ssdeep_fuzzy_hash) {
 PHP_FUNCTION(ssdeep_fuzzy_hash_filename) {
     char *hash = (char *) emalloc(FUZZY_MAX_RESULT);
     char *file_name;
-    int file_name_len;
+    size_t file_name_len;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_name, &file_name_len) == FAILURE) {
         RETURN_NULL();
@@ -138,16 +138,14 @@ PHP_FUNCTION(ssdeep_fuzzy_hash_filename) {
  */
 PHP_FUNCTION(ssdeep_fuzzy_compare) {
     char *signature1 = NULL;
-    int signature1_len;
+    size_t signature1_len;
     char *signature2 = NULL;
-    int signature2_len;
+    size_t signature2_len;
     int match;
-    
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &signature1, &signature1_len, &signature2, &signature2_len) == FAILURE) {
         RETURN_NULL();
     }
     match = fuzzy_compare(signature1, signature2);
-	
 	if(match < 0 || match > 100) {
 		RETURN_FALSE;
 	} else {
