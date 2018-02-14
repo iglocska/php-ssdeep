@@ -110,7 +110,7 @@ PHP_FUNCTION(ssdeep_fuzzy_hash) {
     if (0 != fuzzy_hash_buf((unsigned char *) to_hash, to_hash_len, hash)) {
         RETURN_FALSE;
     } else {
-        RETURN_STRING(hash, 0);
+        RETURN_STRING(hash);
     }
 }
 /* }}} */
@@ -129,7 +129,7 @@ PHP_FUNCTION(ssdeep_fuzzy_hash_filename) {
     if (0 != fuzzy_hash_filename(file_name, hash)) {
         RETURN_FALSE;
     } else {
-        RETURN_STRING(hash, 0);
+        RETURN_STRING(hash);
     }
 }
 /* }}} */
